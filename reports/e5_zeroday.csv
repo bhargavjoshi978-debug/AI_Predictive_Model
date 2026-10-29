@@ -1,0 +1,5 @@
+Held-Out Fault,Detection Rate,Threshold
+bearing,0.7393015248401378,1.0
+gear_wear,0.7259475218658892,1.0
+motor_overheat,0.760498687664042,1.0
+cable_fault,0.7356194690265486,1.0

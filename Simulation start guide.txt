@@ -1,0 +1,22 @@
+Open your terminal in the project directory:
+cd "c:\Users\bharg\Downloads\AI Predictive Maintainance"
+
+Option A (Direct command - recommended, always works):
+.\.venv\Scripts\streamlit.exe run app/dashboard.py
+
+Option B (Activate venv first):
+.\.venv\Scripts\Activate.ps1
+streamlit run app/dashboard.py
+
+2. Batch Synthetic Telemetry Simulation (CLI)
+If you want to run the simulation in batch mode to generate dataset episodes:
+
+Generate new synthetic telemetry episodes:
+.\.venv\Scripts\python.exe -m pdm.cli generate
+
+Train models:
+.\.venv\Scripts\python.exe -m pdm.cli train
+
+Run evaluation and edge benchmark simulation:
+.\.venv\Scripts\python.exe -m pdm.cli evaluate
+

@@ -1,0 +1,10 @@
+{
+  "n_episodes": 400,
+  "fault_episodes": 299,
+  "failing_episodes": 297,
+  "failure_ratio": 0.9933110367892977,
+  "adjusted_degradation_rate": false,
+  "r_min": 2e-05,
+  "r_max": 8e-05,
+  "stride": 10
+}

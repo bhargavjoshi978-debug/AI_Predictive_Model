@@ -1,0 +1,107 @@
+seed: 42
+
+simulator:
+  n_joints: 6
+  sample_rate_hz: 1000
+  step_seconds: 1.0
+  f_rot_base: 5.0
+  i0_base: 5.0
+  t_amb: 25.0
+  k_load: 15.0
+  tau_thermal: 120.0
+  noise:
+    sigma_v: 0.05
+    sigma_i: 0.03
+    sigma_t: 0.3
+    sigma_a: 0.02
+  drift:
+    rate_per_1000: 0.0002
+  sensor_imperfections:
+    dropout_prob: 0.001
+    glitch_prob: 0.0005
+    glitch_multiplier: 3.0
+
+dataset:
+  n_episodes: 400
+  episode_min_steps: 2000
+  episode_max_steps: 6000
+  step_stride: 10
+  fault_mix:
+    none: 0.20
+    bearing: 0.20
+    gear_wear: 0.20
+    motor_overheat: 0.20
+    cable_fault: 0.20
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  degradation:
+    r_min: 0.00002
+    r_max: 0.00008
+    p: 1.5
+    noise_sigma: 0.002
+    failure_threshold: 0.1
+    fault_observable_damage: 0.15
+    rul_cap: 300
+
+features:
+  window_len: 1024
+  hop: 512
+  fft_bands: 8
+  trend_windows: 5
+  seq_len: 20
+  seq_features_top_k: 30
+
+models:
+  random_forest:
+    n_estimators: 200
+    max_depth: 12
+    class_weight: "balanced"
+    random_state: 42
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.08
+    subsample: 0.8
+    colsample_bytree: 0.8
+    tree_method: "hist"
+    early_stopping_rounds: 20
+  autoencoder:
+    latent_dim: 8
+    hidden_dims: [64, 32]
+    learning_rate: 0.001
+    epochs: 60
+    batch_size: 256
+    patience: 10
+    threshold_percentile: 99.0
+  lstm:
+    hidden_dim: 64
+    num_layers: 2
+    dropout: 0.2
+    learning_rate: 0.001
+    epochs: 40
+    batch_size: 128
+    patience: 10
+
+alerts:
+  warn_threshold: 0.5
+  critical_threshold: 0.8
+  hysteresis_warn_steps: 3
+  hysteresis_critical_steps: 3
+  recovery_warn_steps: 5
+  recovery_critical_steps: 5
+
+edge:
+  profile: "raspberry_pi_4"
+  latency_ms_max: 50.0
+  size_mb_max: 50.0
+  ram_mb_max: 512.0
+  slowdown_factor: 5.0
+  test_windows: 1000
+
+federated:
+  enabled: false
+  cells: 3
+  rounds: 10
+  local_epochs: 3
